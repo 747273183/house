@@ -1,8 +1,10 @@
-package com.example.house;
+package com.example.house.controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.house.R;
 
 public class MainActivity extends AppCompatActivity {
 
