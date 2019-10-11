@@ -2,6 +2,8 @@ package com.example.house.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -28,7 +30,7 @@ import okhttp3.Response;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText et_user,et_password;
-    private static final String TAG = "LoginActivity";
+    private static final String TAG = "LoginActivity-";
 
 
     @Override
@@ -46,6 +48,12 @@ public class LoginActivity extends AppCompatActivity {
         //接口参数 String username,String password
         String user = et_user.getText().toString();
         String password = et_password.getText().toString();
+
+        if(TextUtils.isEmpty(user) || TextUtils.isEmpty(password))
+        {
+            Toast.makeText(this, "用户名或密码不能为空!", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         String url = "http://zhapp.t.100help.net/api/";
         String pathLogin="login/login";
@@ -72,19 +80,18 @@ public class LoginActivity extends AppCompatActivity {
                     Response response = call.execute();
                     String result = response.body().string();
 
-                    Log.d(TAG, "run: "+result);
+                    Log.d(TAG, "result: "+result);
 
                     JSONObject object=new JSONObject(result);
                     int code = object.getInt("code");
-                    String msg = object.getString("msg");
-                    JSONObject data = object.getJSONObject("data");
-
-                    Gson gson=new Gson();
-                    Account account= gson.fromJson(data.toString(), Account.class);
+                    final String msg = object.getString("msg");
 
                     //判断登录
                     if (code==1)
                     {
+                        JSONObject data = object.getJSONObject("data");
+                        Gson gson=new Gson();
+                        Account account= gson.fromJson(data.toString(), Account.class);
                         //进入首页
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("account",account);
@@ -92,13 +99,13 @@ public class LoginActivity extends AppCompatActivity {
                         finish();
                     }
                     else {
-                        //弹出提示
-                        Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        //在子线程中弹出提示
+                        Looper.prepare();
+                        Toast.makeText(LoginActivity.this,msg,Toast.LENGTH_SHORT).show();
+                        Looper.loop();
+                        
                     }
 
-
-
-                    Log.d(TAG, "run: "+account);
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {
