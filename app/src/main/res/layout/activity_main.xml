@@ -24,58 +24,54 @@
             android:textSize="40sp" />
 
         <LinearLayout
-            android:layout_below="@id/ll_title"
             android:id="@+id/ll_body"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:background="@drawable/circle_border_bg"
-            android:layout_marginBottom="80dp"
+            android:layout_below="@id/ll_title"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            >
+            android:layout_marginBottom="80dp"
+            android:layout_weight="1"
+            android:background="@drawable/circle_border_bg"
+            android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/dots"
-                android:text="鉴定报告"
                 android:gravity="center"
+                android:text="鉴定报告"
                 android:textColor="#2196F3"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
             <Button
-                android:layout_marginTop="50dp"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="录入鉴定报告"
-            android:textSize="20sp"
-            android:background="@drawable/circle_border_buttonbg"
-            android:textColor="#fff"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-            />
-
-            <Button
-                android:layout_marginTop="50dp"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="住房危险状况评定标准"
-                android:textSize="20sp"
-                android:background="@drawable/circle_border_buttonbg"
-                android:textColor="#fff"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="50dp"
                 android:layout_marginRight="20dp"
-                />
+                android:background="@drawable/circle_border_buttonbg"
+                android:text="录入鉴定报告"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/circle_border_buttonbg"
+                android:text="住房危险状况评定标准"
+                android:textColor="#fff"
+                android:textSize="20sp" />
 
 
         </LinearLayout>
 
 
     </LinearLayout>
-
 
 
     <LinearLayout
