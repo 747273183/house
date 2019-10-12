@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -34,21 +35,26 @@ import okhttp3.Response;
 public class MyFragment extends Fragment {
 
     private static final String TAG = "MyFragment";
+    private Button btn_change_password;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my, container, false);
+        btn_change_password = view.findViewById(R.id.btn_change_password);
+        btn_change_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changePassword();
+            }
+        });
+
         return view;
     }
 
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_change_password:
-                changePassword();
-                break;
-        }
-    }
+
+
+
 
     private void changePassword() {
         AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
@@ -98,7 +104,7 @@ public class MyFragment extends Fragment {
                 .build();
         //第三步创建Rquest
         Request request = new Request.Builder()
-                .url(Constant.URL+Constant.PATH_LOGIN)
+                .url(Constant.URL+Constant.PATH_CHANGE_PWD)
                 .post(body)
                 .build();
         //第四步创建call回调对象
@@ -115,7 +121,7 @@ public class MyFragment extends Fragment {
 
                     JSONObject object=new JSONObject(result);
                     int code = object.getInt("code");
-                     String msg = object.getString("msg");
+                    String msg = object.getString("msg");
 
 
                     //在子线程中弹出提示

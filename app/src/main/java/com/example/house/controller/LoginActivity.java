@@ -2,7 +2,6 @@ package com.example.house.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -14,18 +13,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.house.R;
 import com.example.house.model.Account;
 import com.example.house.model.Constant;
+import com.example.house.util.MyOkHttpUtil;
 import com.google.gson.Gson;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 
 import okhttp3.Call;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
+import okhttp3.Callback;
 import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
@@ -47,8 +45,8 @@ public class LoginActivity extends AppCompatActivity {
     //登录
     public void onClick(View view) {
         //接口参数 String username,String password
-        String user = et_user.getText().toString();
-        String password = et_password.getText().toString();
+        final String user = et_user.getText().toString();
+        final String password = et_password.getText().toString();
 
         if(TextUtils.isEmpty(user) || TextUtils.isEmpty(password))
         {
@@ -56,62 +54,60 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-
-        //第一步创建OKHttpClient
-        OkHttpClient client = new OkHttpClient.Builder()
-                .build();
-        //第二步创建RequestBody
-        RequestBody body = new FormBody.Builder()
-                .add("user", user)
-                .add("password", password)
-                .build();
-        //第三步创建Rquest
-        Request request = new Request.Builder()
-                .url(Constant.URL+Constant.PATH_LOGIN)
-                .post(body)
-                .build();
-        //第四步创建call回调对象
-        final Call call = client.newCall(request);
-        //第五步发起请求
+        //发起请求
         new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    Response response = call.execute();
-                    String result = response.body().string();
-
-                    Log.d(TAG, "result: "+result);
-
-                    JSONObject object=new JSONObject(result);
-                    int code = object.getInt("code");
-                    final String msg = object.getString("msg");
-
-                    //判断登录
-                    if (code==1)
-                    {
-                        JSONObject data = object.getJSONObject("data");
-                        Gson gson=new Gson();
-                        Account account= gson.fromJson(data.toString(), Account.class);
-                        //进入首页
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        intent.putExtra("account",account);
-                        startActivity(intent);
-                        finish();
-                    }
-                    else {
-                        //在子线程中弹出提示
-                        Looper.prepare();
-                        Toast.makeText(LoginActivity.this,msg,Toast.LENGTH_SHORT).show();
-                        Looper.loop();
-
+                MyOkHttpUtil.Login(Constant.URL + Constant.PATH_LOGIN, user, password, new Callback() {
+                    @Override
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        Log.d(TAG, "onFailure: 请求失败");
                     }
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                    @Override
+                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                        try {
+                            if (response.code()==200)
+                            {
+                                String data = response.body().string();
+                                JSONObject jsonObject=new JSONObject(data);
+                                int code = jsonObject.getInt("code");
+                                final String msg = jsonObject.getString("msg");
+                                if (code==1)
+                                {
+                                    //登录成功
+                                    JSONObject data1 = jsonObject.getJSONObject("data");
+                                    Gson gson=new Gson();
+                                    Account account= gson.fromJson(data1.toString(), Account.class);
+                                    //进入首页
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    intent.putExtra("account",account);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                                else
+                                {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(LoginActivity.this,msg, Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+
+
+                            }else
+                            {
+                                Log.d(TAG, "onResponse: 请求成功，响应码为："+response.code());
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
         }).start();
+
+
     }
 }
