@@ -10,6 +10,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.house.R;
 import com.example.house.model.IndexFragment;
+import com.example.house.model.ListFragment;
+import com.example.house.model.MyFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,8 +41,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.ll_index:
                 switchFragment(new IndexFragment());
                 break;
+            case R.id.ll_list:
+                switchFragment(new ListFragment());
+                break;
             case R.id.ll_my:
-                switchFragment(new myFragment());
+                switchFragment(new MyFragment());
                 break;
         }
     }
