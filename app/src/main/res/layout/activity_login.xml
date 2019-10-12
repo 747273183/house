@@ -70,6 +70,7 @@
             android:drawableLeft="@drawable/pwd"
             android:drawablePadding="10dp"
             android:hint="密码"
+
             android:layout_marginTop="10dp"
             />
 

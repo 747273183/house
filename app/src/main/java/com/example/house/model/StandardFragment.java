@@ -20,4 +20,12 @@ public class StandardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_standard, container, false);
         return view;
     }
+
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_back:
+
+                break;
+        }
+    }
 }

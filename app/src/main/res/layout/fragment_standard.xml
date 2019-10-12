@@ -4,11 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".controller.StandardActivity">
+    tools:context=".model.StandardFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:padding="5dp"
         android:background="#2196F3"
         >
         <ImageView
@@ -16,7 +17,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="30dp"
             android:onClick="onClick"
             android:src="@drawable/back" />
 
@@ -36,14 +36,14 @@
         android:layout_height="50dp"
         android:text="房屋各组成部分"
         android:gravity="center_vertical"
-        android:paddingLeft="30dp"
+        android:padding="5dp"
         android:background="#F1F1F1"
         android:textSize="18sp"
         />
 
     <ListView
         android:id="@+id/lv_standard"
-        android:paddingLeft="30dp"
+        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
