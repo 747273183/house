@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.house.R;
 import com.example.house.model.Account;
+import com.example.house.model.Constant;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -55,8 +56,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        String url = "http://zhapp.t.100help.net/api/";
-        String pathLogin="login/login";
+
         //第一步创建OKHttpClient
         OkHttpClient client = new OkHttpClient.Builder()
                 .build();
@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
         //第三步创建Rquest
         Request request = new Request.Builder()
-                .url(url+pathLogin)
+                .url(Constant.URL+Constant.PATH_LOGIN)
                 .post(body)
                 .build();
         //第四步创建call回调对象
@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
                         Looper.prepare();
                         Toast.makeText(LoginActivity.this,msg,Toast.LENGTH_SHORT).show();
                         Looper.loop();
-                        
+
                     }
 
                 } catch (IOException e) {

@@ -4,18 +4,36 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.house.R;
+import com.example.house.controller.LoginActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class MyFragment extends Fragment {
+
+    private static final String TAG = "MyFragment";
 
     @Nullable
     @Override
@@ -68,6 +86,56 @@ public class MyFragment extends Fragment {
     }
 
     private void postChangePassword(int id, String old_pwd, String new_pwd, String pas_pwd) {
+        //第一步创建OKHttpClient
+        OkHttpClient client = new OkHttpClient.Builder()
+                .build();
+        //第二步创建RequestBody
+        RequestBody body = new FormBody.Builder()
+                .add("old_pwd", old_pwd)
+                .add("new_pwd", new_pwd)
+                .add("pas_pwd", pas_pwd)
+                .add("id", id+"")
+                .build();
+        //第三步创建Rquest
+        Request request = new Request.Builder()
+                .url(Constant.URL+Constant.PATH_LOGIN)
+                .post(body)
+                .build();
+        //第四步创建call回调对象
+        final Call call = client.newCall(request);
+        //第五步发起请求
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Response response = call.execute();
+                    String result = response.body().string();
 
+                    Log.d(TAG, "result: "+result);
+
+                    JSONObject object=new JSONObject(result);
+                    int code = object.getInt("code");
+                     String msg = object.getString("msg");
+
+
+                    //在子线程中弹出提示
+                    Looper.prepare();
+                    Toast.makeText(getContext(),msg,Toast.LENGTH_SHORT).show();
+                    Looper.loop();
+
+                    if (code==1)
+                    {
+                        //重新登录
+                        Intent intent = new Intent(getContext(), LoginActivity.class);
+                        startActivity(intent);
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 }
