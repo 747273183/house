@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFF"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_partname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="一、地基基础"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_level_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="a：地基就出保持稳定，无明显不均匀沉降地基就出地基就出保持稳定，无明显不均匀沉降\nb：地基就出保持稳定，无明显不均匀沉降地基就出地基就出保持稳定，无明显不均匀沉降\nc：地基就出保持稳定，无明显不均匀沉降地基就出地基就出保持稳定，无明显不均匀沉降\nd：地基就出保持稳定，无明显不均匀沉降地基就出地基就出保持稳定，无明显不均匀沉降" />
+
+
+</LinearLayout>
