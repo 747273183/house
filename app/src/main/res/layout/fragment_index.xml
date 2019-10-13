@@ -35,7 +35,7 @@
             android:gravity="center"
             android:text="鉴定报告"
             android:textColor="#2196F3"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <Button
@@ -43,26 +43,26 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/circle_border_buttonbg"
             android:onClick="onClick"
             android:text="录入鉴定报告"
             android:textColor="#fff"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/btn_show_standard"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/circle_border_buttonbg"
             android:onClick="onClick"
             android:text="住房危险状况评定标准"
             android:textColor="#fff"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
 
     </LinearLayout>

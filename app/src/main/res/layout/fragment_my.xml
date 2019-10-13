@@ -28,7 +28,7 @@
             android:onClick="onClick"
             android:text="修改密码"
             android:textColor="#FFF"
-            android:textSize="20sp"
+            android:textSize="14sp"
             android:background="@android:color/transparent"
             android:layout_alignParentRight="true"
             />

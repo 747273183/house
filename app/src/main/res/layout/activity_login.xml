@@ -45,7 +45,7 @@
     <LinearLayout
         android:id="@+id/ll_login"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="300dp"
         android:orientation="vertical"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
@@ -70,7 +70,6 @@
             android:drawableLeft="@drawable/pwd"
             android:drawablePadding="10dp"
             android:hint="密码"
-
             android:layout_marginTop="10dp"
             />
 

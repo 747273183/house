@@ -6,15 +6,17 @@ import java.io.Serializable;
 public class Account implements Serializable {
     private  int id;
     private String user;
+    private String name;
     private String tel;
     private String img;
 
     public Account() {
     }
 
-    public Account(int id, String user, String tel, String img) {
+    public Account(int id, String user, String name, String tel, String img) {
         this.id = id;
         this.user = user;
+        this.name = name;
         this.tel = tel;
         this.img = img;
     }
@@ -53,11 +55,20 @@ public class Account implements Serializable {
         this.img = img;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "Account{" +
                 "id=" + id +
                 ", user='" + user + '\'' +
+                ", name='" + name + '\'' +
                 ", tel='" + tel + '\'' +
                 ", img='" + img + '\'' +
                 '}';
