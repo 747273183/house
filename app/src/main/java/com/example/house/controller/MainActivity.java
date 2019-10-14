@@ -25,27 +25,31 @@ public class MainActivity extends AppCompatActivity {
         manager = getSupportFragmentManager();
 
         //加载首页的Fragment
-        switchFragment(new IndexFragment());
+        switchFragment(new IndexFragment(),true);
 
 
     }
 
-    private void switchFragment(Fragment fragment) {
+    public void switchFragment(Fragment fragment,Boolean isAddToBackStack) {
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.fragment_container,fragment);
+        if (isAddToBackStack)
+        {
+            transaction.addToBackStack(null);
+        }
         transaction.commit();
     }
 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_index:
-                switchFragment(new IndexFragment());
+                switchFragment(new IndexFragment(),false);
                 break;
             case R.id.ll_list:
-                switchFragment(new ListFragment());
+                switchFragment(new ListFragment(),false);
                 break;
             case R.id.ll_my:
-                switchFragment(new MyFragment());
+                switchFragment(new MyFragment(),false);
                 break;
         }
     }

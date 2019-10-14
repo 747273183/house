@@ -23,7 +23,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="评定标准"
+            android:text="录入鉴定报告"
             android:textColor="#FFF"
             android:textSize="20sp"
             android:layout_centerInParent="true"
@@ -34,17 +34,23 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="房屋各组成部分"
+        android:text="一.委托单位及住户信息"
         android:gravity="center_vertical"
         android:padding="5dp"
         android:background="#F1F1F1"
         android:textSize="18sp"
         />
 
-    <ListView
-        android:id="@+id/lv_standard"
-        android:padding="5dp"
+    <Button
+        android:id="@+id/btn_submit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="提交"
+        android:textColor="#FFF"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/circle_border_buttonbg"
+        />
+
 
 </LinearLayout>

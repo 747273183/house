@@ -42,6 +42,7 @@ public class MyOkHttpUtil {
         //第二步创建RequestBody
 
         //求出加密的pwd
+
         Iterator<Map.Entry<String, String>> it = params.entrySet().iterator();
         StringBuilder sb=new StringBuilder();
 

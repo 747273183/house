@@ -20,6 +20,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.house.R;
 import com.example.house.controller.LoginActivity;
 import com.example.house.util.MyOkHttpUtil;
@@ -30,7 +32,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.LinkedHashMap;
 
 import okhttp3.Call;
@@ -108,10 +109,16 @@ public class MyFragment extends Fragment {
                                     tv_name.setText("姓名:"+account1.getName());
                                     tv_phone.setText("手机号:"+account1.getTel());
 
+                                    RequestOptions mRequestOptions = RequestOptions.circleCropTransform()
+                                            .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
+                                            .skipMemoryCache(true);
+
+
                                     Glide.with(getContext())
                                             .load(account1.getImg().toString().replace("\\","/"))
                                             .placeholder(R.drawable.place_image)//图片加载出来前，显示的图片
                                             .error(R.drawable.error_image)//图片加载失败后，显示的图片
+                                            .apply(mRequestOptions)
                                             .into(iv_head);
                                 }
                             });

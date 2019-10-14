@@ -46,7 +46,6 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/circle_border_buttonbg"
-            android:onClick="onClick"
             android:text="录入鉴定报告"
             android:textColor="#fff"
             android:textSize="18sp" />
@@ -59,7 +58,6 @@
             android:layout_marginTop="30dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/circle_border_buttonbg"
-            android:onClick="onClick"
             android:text="住房危险状况评定标准"
             android:textColor="#fff"
             android:textSize="18sp" />
