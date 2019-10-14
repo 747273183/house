@@ -1,4 +1,4 @@
-package com.example.house.controller;
+package com.example.house.activity;
 
 import android.content.Intent;
 import android.os.Bundle;

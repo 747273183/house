@@ -1,17 +1,9 @@
 package com.example.house.util;
 
-import android.content.Intent;
-import android.os.Looper;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.example.house.controller.LoginActivity;
 import com.example.house.model.Constant;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -21,8 +13,6 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.Response;
-import okio.Okio;
 
 public class MyOkHttpUtil {
 

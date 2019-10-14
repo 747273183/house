@@ -1,4 +1,4 @@
-package com.example.house.model;
+package com.example.house.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

@@ -1,4 +1,4 @@
-package com.example.house.controller;
+package com.example.house.activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -9,9 +9,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.house.R;
-import com.example.house.model.IndexFragment;
-import com.example.house.model.ListFragment;
-import com.example.house.model.MyFragment;
+import com.example.house.fragment.IndexFragment;
+import com.example.house.fragment.ListFragment;
+import com.example.house.fragment.MyFragment;
 
 public class MainActivity extends AppCompatActivity {
 

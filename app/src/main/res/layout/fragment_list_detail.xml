@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
 
-    tools:context=".model.ListFragment">
+    tools:context=".fragment.ListFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"

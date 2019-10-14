@@ -1,4 +1,4 @@
-package com.example.house.model;
+package com.example.house.fragment;
 
 import android.os.Bundle;
 import android.os.Looper;
@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.house.R;
+import com.example.house.model.Constant;
 import com.example.house.util.MyOkHttpUtil;
 import com.google.gson.Gson;
 
