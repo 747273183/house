@@ -6,6 +6,8 @@ public class Constant {
     public static final String PATH_CHANGE_PWD = "member/change_pwd";
     public static final String PATH_PERSONAL_INFO = "member/info";
     public static final String PATH_STANDARD ="report/standard";
+    public static final String PATH_REPORT_LIST="report/report_list";
+
 
     public static final String appkey = "appkey=zhenghe20190924";
 }
