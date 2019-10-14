@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -16,19 +17,17 @@ import androidx.fragment.app.Fragment;
 
 import com.example.house.R;
 import com.example.house.adapter.ReportListBaseAdapter;
-import com.example.house.model.Account;
 import com.example.house.model.Constant;
+import com.example.house.model.PeportListDetail;
 import com.example.house.model.ReportList;
 import com.example.house.util.MyOkHttpUtil;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -43,12 +42,20 @@ public class ReportListDetailFragment extends Fragment {
     private List<ReportList> reportLists;
     private ListView lv_standard;
 
-    private static final String TAG = "ReportListFragment";
+    private static final String TAG = "ReportListFragment=";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_reportlist, container, false);
+        view = inflater.inflate(R.layout.fragment_reportlist_detail, container, false);
+       ImageView iv_back= view.findViewById(R.id.iv_back);
+       iv_back.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               getActivity().getSupportFragmentManager().popBackStack();
+           }
+       });
+
         return view;
     }
 
@@ -56,44 +63,50 @@ public class ReportListDetailFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        lv_standard = view.findViewById(R.id.lv_standard);
-        reportLists=new ArrayList<>();
 
+        //获得report_id
+        Intent intent = getActivity().getIntent();
+        long report_id = intent.getLongExtra("report_id",0);
 
         //请求结果格式
-       //  reportList: {"
-        //  code":1,
-        //  "msg":"请求成功",
+        /*{
+                "code":1,
+                "msg":"请求成功",
 
-        //  "data":[
-        //  {"id":148,
-        //  "company":"淮滨县住房和城乡建设局",
-        //  "time":"2019-10-13",
-        //  "master":"张三",
-        //  "city":"河南省信阳市淮滨县 三空桥乡张营村"},
+                "data":{
+                    "id":148,
+                "member_id":"高惟新",
+                "company":"淮滨县住房和城乡建设局",
+                "master":"张三",
+                "use_id":"住宅"
+                ,"time":"2019-10-13",
+                "img_top":"http:\/\/zhapp.t.100help.net\/public\/uploads\/20191013\\76f45ab14b803387a32d36f59966d10e.",
+                "img_left":"http:\/\/zhapp.t.100help.net\/public\/uploads\/20191013\\c7c3340c371a47d07cc2c85dbd67fd89.",
+                "img_right":"http:\/\/zhapp.t.100help.net\/public\/uploads\/20191013\\4737270bae02efa50cf38ef5d2f3878a.",
+                "complete":"上世纪八九十年代",
+                "floor":"一层",
+                "type_id":"砖木",
+                "foundation":"b",
+                "wall":"b",
+                "beam":"b",
+                "build":"b",
+                "judge":"B",
+                "auditor":"李国栋",
+                "ratify":"刘金超",
+                "opinion":"该住房为安全性住房。",
+                "appraiser":"王利伟、杨志伟",
+                "statement":"1、报告无鉴定人、审核人、批准人无效，报告有涂改现象无效，报告未盖“鉴定专用章”无效；\r\n2、如您对本报告有异议，请于收到报告 15 日内向我公司书面提请复议，逾期不予受理。\r\n                ",
+                    "city":"河南省信阳市淮滨县 三空桥乡张营村"}
+        }*/
 
-        //  {"id":147,
-        //  "company":"洛阳市委",
-        //  "time":"2019-10-10",
-        //  "master":"乔峰",
-        //  "city":"河南省洛阳市洛龙区洛阳大学"},
+        //获得要显示数据的控件
 
-        //  {"id":146,
-        //  "company":"撒逼逼",
-        //  "time":"2019-10-10",
-        //  "master":"公民",
-        //  "city":"北京市市辖区东城区共鸣"}
-        //
-        //  ]}
 
-        Intent intent = getActivity().getIntent();
-        Account account = (Account) intent.getSerializableExtra("account");
-        int id = account.getId();
+
         LinkedHashMap<String, String> params = new LinkedHashMap<String, String>();
-        params.put("id",id+"");
-        params.put("page","1");
-        params.put("pagenum","6");
-        MyOkHttpUtil.postRequest(Constant.URL + Constant.PATH_REPORT_LIST, false, params, new Callback() {
+        params.put("report_id",report_id+"");
+
+        MyOkHttpUtil.postRequest(Constant.URL + Constant.PATH_REPORT_DETAIL, false, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 //在子线程中弹出提示
@@ -107,29 +120,23 @@ public class ReportListDetailFragment extends Fragment {
                 try {
                     if (response.code() == 200) {
                         String body = response.body().string();
-                        Log.d(TAG, "reportList: " + body);
+                        Log.d(TAG, "report_detail: " + body);
                         JSONObject jsonObject = new JSONObject(body);
                         int code = jsonObject.getInt("code");
                         final String msg = jsonObject.getString("msg");
 
                         if (code == 1) {
-                            //请求成功,获得数据封装在Standard对象中
-                            //gson解析
-                            JSONArray data = jsonObject.getJSONArray("data");
+//                            请求成功,获得数据封装在Standard对象中
+//                            gson解析
+                            JSONObject data = jsonObject.getJSONObject("data");
                             Gson gson = new Gson();
-                            for (int i=0;i<data.length();i++)
-                            {
-                                JSONObject jsonObject1 = data.getJSONObject(i);
-                                ReportList reportList = gson.fromJson(jsonObject1.toString(), ReportList.class);
-                                reportLists.add(reportList);
-                            }
+                            gson.fromJson(data.toString(), PeportListDetail.class);
+
                             //显示
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    //设置适配器
-                                    adapter=new ReportListBaseAdapter(getContext(),reportLists);
-                                    lv_standard.setAdapter(adapter);
+
                                 }
                             });
                         }

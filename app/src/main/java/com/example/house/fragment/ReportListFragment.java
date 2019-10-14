@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.house.R;
+import com.example.house.activity.MainActivity;
 import com.example.house.adapter.ReportListBaseAdapter;
 import com.example.house.model.Account;
 import com.example.house.model.Constant;
@@ -58,7 +60,17 @@ public class ReportListFragment extends Fragment {
 
         lv_standard = view.findViewById(R.id.lv_standard);
         reportLists=new ArrayList<>();
-
+        //单击列表项,显示监定报告详情页面
+        lv_standard.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                long itemIdAtPosition = parent.getItemIdAtPosition(position);
+                Log.d(TAG, "report_id=== "+itemIdAtPosition);
+                MainActivity mainActivity= (MainActivity) getActivity();
+                mainActivity.getIntent().putExtra("report_id",itemIdAtPosition);
+                mainActivity.switchFragment(new ReportListDetailFragment(),true);
+            }
+        });
 
         //请求结果格式
        //  reportList: {"
